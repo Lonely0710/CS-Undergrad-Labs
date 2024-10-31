@@ -1,0 +1,35 @@
+using namespace std;
+string dateTrans(const string &Str)
+{
+    stringstream ss(Str);
+    string token;
+    string year, month, day;
+    getline(ss, token, '-');
+    year = token;
+    
+    getline(ss, token, '-');
+    if (token.length()==1)
+    {
+        month = '0' + token;
+    }
+    else month = token;
+    
+    getline(ss, token, '-');
+    if (token.length() == 1)
+    {
+        day = '0' + token;
+    }
+    else day = token;
+    stringstream newStr;
+    newStr << month << '/' << day << '/' << year;
+    return newStr.str();
+}
+int main()
+{
+    string date;
+    while (getline(cin, date))
+    {
+        string date_new = dateTrans(date);
+        cout << date_new << endl;
+    }
+}
