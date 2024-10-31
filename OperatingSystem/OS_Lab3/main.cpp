@@ -3,12 +3,12 @@
 
 int main() {
     CPU_Scheduling scheduler;
-    std::vector<Process> processes = {
-            {1, 0, 8, 0, 0, 0, 8},
-            {2, 1, 4, 0, 0, 0, 4},
-            {3, 2, 9, 0, 0, 0, 9},
-            {4, 3, 5, 0, 0, 0, 5}
-    };
+    int numProcesses = 5;
+
+    // 随机生成进程
+    std::vector<Process> processes = scheduler.generateProcesses(numProcesses);
+    scheduler.printProcesses(processes); // 输出生成的进程信息
+    std::cout << std::endl;
 
     int choice, timeQuantum;
     std::cout << "选择调度算法: 1. FCFS 2. SJF 3. HRRN 4. RR\n";
