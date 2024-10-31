@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug_QT6" ENABLED="true" CONFIG_NAME="Release" TOOLCHAIN_NAME="QT6" GENERATION_OPTIONS="-G Ninja" BUILD_OPTIONS="-j 10" />
+    </configurations>
+  </component>
+</project>
