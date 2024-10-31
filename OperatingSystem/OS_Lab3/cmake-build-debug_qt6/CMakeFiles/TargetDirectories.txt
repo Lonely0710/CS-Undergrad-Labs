@@ -1,3 +1,0 @@
-/Users/yll/CLion/OperatingSystem/OS_Lab3/cmake-build-debug_qt6/CMakeFiles/OS_Lab3.dir
-/Users/yll/CLion/OperatingSystem/OS_Lab3/cmake-build-debug_qt6/CMakeFiles/edit_cache.dir
-/Users/yll/CLion/OperatingSystem/OS_Lab3/cmake-build-debug_qt6/CMakeFiles/rebuild_cache.dir
