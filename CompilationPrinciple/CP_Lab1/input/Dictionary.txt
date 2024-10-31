@@ -2,9 +2,12 @@
 
 using namespace std;
 
-string s;
-map<string, int> temp;
+string s; /* 跟随测试 */
+map<string, int> temp; // 跟随测试
 
+/* 多行测试
+    */
+// 单行测试
 bool cmp(string s1, string s2)
 {
     if (temp[s1] == temp[s2])

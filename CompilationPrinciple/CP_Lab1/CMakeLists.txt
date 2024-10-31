@@ -9,4 +9,5 @@ add_executable(CP_Lab1
         main.cpp
         Scan_Analyzer.cpp
         Scan_function.h
-        Token.h)
+        Token.h
+)
