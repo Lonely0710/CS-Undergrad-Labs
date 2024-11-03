@@ -1,4 +1,3 @@
-// main.cpp
 #include "CPUscheduling.h"
 
 int main() {
@@ -7,7 +6,7 @@ int main() {
 
     // 随机生成进程
     std::vector<Process> processes = scheduler.generateProcesses(numProcesses);
-    scheduler.printProcesses(processes); // 输出生成的进程信息
+    scheduler.printInit(processes); // 输出生成的进程信息
     std::cout << std::endl;
 
     int choice, timeQuantum;

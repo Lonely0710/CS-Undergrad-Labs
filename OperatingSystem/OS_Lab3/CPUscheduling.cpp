@@ -1,4 +1,3 @@
-// CPUscheduling.cpp
 #include "CPUscheduling.h"
 
 std::vector<Process> CPU_Scheduling::generateProcesses(int numProcesses) {
@@ -13,10 +12,9 @@ std::vector<Process> CPU_Scheduling::generateProcesses(int numProcesses) {
         Process p;
         p.pid = i + 1;
         p.arrivalTime = arrivalDist(gen);
+        p.firstTime = -1;
         p.burstTime = burstDist(gen); // 随机CPU运行时间
-        p.ioTime = ioDist(gen); // 随机I/O时间
         p.remainingTime = p.burstTime; // 初始化剩余时间
-        p.priority = priorityDist(gen);
         p.state = "Created"; // 初始状态为“已创建
         processes.push_back(p);
     }
@@ -29,6 +27,11 @@ void CPU_Scheduling::FCFS(std::vector<Process>& processes) {
     for (auto& process : processes) {
         if (currentTime < process.arrivalTime) {
             currentTime = process.arrivalTime;
+        }
+
+        // 记录进程的第一次开始时间
+        if (process.firstTime == -1) {
+            process.firstTime = currentTime;
         }
 
         // 更新状态并输出状态变化
@@ -48,24 +51,51 @@ void CPU_Scheduling::FCFS(std::vector<Process>& processes) {
 
 void CPU_Scheduling::SJF(std::vector<Process>& processes) {
     int currentTime = 0;
+    std::vector<Process> completedProcesses; // 存储已完成的进程
+
     while (!processes.empty()) {
         auto it = std::min_element(processes.begin(), processes.end(),
                                    [&](const Process& a, const Process& b) {
-                                       return (a.arrivalTime <= currentTime && a.burstTime < b.burstTime) ||
-                                              (b.arrivalTime > currentTime);
+                                       // 仅在进程到达后才参与比较
+                                       if (a.arrivalTime <= currentTime && b.arrivalTime <= currentTime) {
+                                           return a.burstTime < b.burstTime;
+                                       }
+                                       return a.arrivalTime <= currentTime;
                                    });
 
-        it->waitTime = std::max(0, currentTime - it->arrivalTime);
+        // 如果当前没有进程到达，则时间向前推进
+        if (it == processes.end() || it->arrivalTime > currentTime) {
+            currentTime++;
+            continue;
+        }
+
+        // 记录进程的第一次开始时间
+        if (it->firstTime == -1) {
+            it->firstTime = currentTime;
+        }
+
+        it->state = "Running";
+        std::cout << "Time " << currentTime << ": Process " << it->pid << " is Running\n";
+
+        // 计算相关时间
+        it->waitTime = currentTime - it->arrivalTime;
         it->turnaroundTime = it->waitTime + it->burstTime;
         it->finishTime = currentTime + it->burstTime;
         currentTime += it->burstTime;
 
+        it->state = "Completed";
+        std::cout << "Time " << currentTime << ": Process " << it->pid << " is Completed\n";
+
+        completedProcesses.push_back(*it);
         processes.erase(it);
     }
+    printProcesses(completedProcesses);
 }
 
 void CPU_Scheduling::HRRN(std::vector<Process>& processes) {
     int currentTime = 0;
+    std::vector<Process> completedProcesses; // 存储已完成的进程
+
     while (!processes.empty()) {
         auto it = std::max_element(processes.begin(), processes.end(),
                                    [&](const Process& a, const Process& b) {
@@ -74,47 +104,106 @@ void CPU_Scheduling::HRRN(std::vector<Process>& processes) {
                                        return responseRatioA < responseRatioB;
                                    });
 
+        // 记录进程的第一次开始时间
+        if (it->firstTime == -1) {
+            it->firstTime = currentTime;
+        }
+
+        it->state = "Running";
+        std::cout << "Time " << currentTime << ": Process " << it->pid << " is Running\n";
+
         it->waitTime = std::max(0, currentTime - it->arrivalTime);
         it->turnaroundTime = it->waitTime + it->burstTime;
         it->finishTime = currentTime + it->burstTime;
         currentTime += it->burstTime;
 
+        it->state = "Completed";
+        std::cout << "Time " << currentTime << ": Process " << it->pid << " is Completed\n";
+
+        completedProcesses.push_back(*it);
         processes.erase(it);
     }
+    printProcesses(completedProcesses);
 }
 
 void CPU_Scheduling::RR(std::vector<Process>& processes, int timeQuantum) {
     int currentTime = 0;
-    bool done;
+    bool allProcessesCompleted;
 
-    do {
-        done = true;
+    while (true) {
+        allProcessesCompleted = true; // 假设所有进程已完成
+
         for (auto& process : processes) {
-            if (process.remainingTime > 0) {
-                done = false;
-                if (process.remainingTime > timeQuantum) {
-                    currentTime += timeQuantum; // 增加当前时间
-                    process.remainingTime -= timeQuantum; // 减少剩余时间
+            if (process.arrivalTime <= currentTime && process.remainingTime > 0) {
+                // 存在未完成的进程，因此需要继续调度
+                allProcessesCompleted = false;
+
+                // 记录进程的首次开始时间
+                if (process.firstTime == -1) {
+                    process.firstTime = currentTime;
+                }
+
+                int timeSlice = std::min(timeQuantum, process.remainingTime);
+
+                process.state = "Running";
+                std::cout << "Time " << currentTime << ": Process " << process.pid
+                          << " is Running (using " << timeSlice << " out of "
+                          << timeQuantum << " time units), Remaining Time: " << process.remainingTime << "\n";
+
+                // 更新时间和进程剩余时间
+                currentTime += timeSlice;
+                process.remainingTime -= timeSlice;
+
+                // 判断进程是否完成
+                if (process.remainingTime == 0) {
+                    process.finishTime = currentTime;
+                    process.turnaroundTime = process.finishTime - process.arrivalTime;
+                    process.waitTime = process.turnaroundTime - process.burstTime;
+                    process.state = "Completed";
+                    std::cout << "Time " << currentTime << ": Process "
+                              << process.pid << " is Completed\n";
                 } else {
-                    currentTime += process.remainingTime; // 增加到结束时间
-                    process.waitTime = currentTime - process.burstTime; // 计算等待时间
-                    process.turnaroundTime = process.waitTime + process.burstTime; // 计算周转时间
-                    process.finishTime = currentTime; // 计算完成时间
-                    process.remainingTime = 0; // 设置剩余时间为0
+                    // 若未完成，更新状态为等待
+                    process.state = "Waiting";
+                    std::cout << "Time " << currentTime << ": Process "
+                              << process.pid << " is Waiting, Remaining Time: " << process.remainingTime << "\n";
                 }
             }
         }
-    } while (!done);
+
+        // 检查是否有尚未到达的进程，并推进时间到下一个到达时间
+        if (allProcessesCompleted) break;
+
+        if (std::all_of(processes.begin(), processes.end(),
+                        [&](Process& p) { return p.remainingTime == 0 || p.arrivalTime > currentTime; })) {
+            // 找到下一个到达的进程
+            int nextArrivalTime = std::numeric_limits<int>::max();
+            for (const auto& process : processes) {
+                if (process.remainingTime > 0 && process.arrivalTime > currentTime) {
+                    nextArrivalTime = std::min(nextArrivalTime, process.arrivalTime);
+                }
+            }
+            currentTime = nextArrivalTime;
+        }
+    }
+}
+
+void CPU_Scheduling::printInit(const std::vector<Process>& processes) {
+    for (const auto& process : processes) {
+        std::cout << "PID: " << process.pid
+                  << ", Arrival Time at: " << process.arrivalTime
+                  << ", Burst Time Spent: " << process.burstTime << std::endl;
+    }
 }
 
 void CPU_Scheduling::printProcesses(const std::vector<Process>& processes) {
     for (const auto& process : processes) {
         std::cout << "PID: " << process.pid
-                  << ", Arrival Time: " << process.arrivalTime
-                  << ", Burst Time: " << process.burstTime
-                  << ", Wait Time: " << process.waitTime
-                  << ", Turnaround Time: " << process.turnaroundTime
-                  << ", Finish Time: " << process.finishTime << std::endl;
+                  << ", Arrival Time at: " << process.arrivalTime
+                  << ", Starting Time at: "<< process.firstTime
+                  << ", Wait Time Spent: " << process.waitTime
+                  << ", Turnaround Time Spent: " << process.turnaroundTime
+                  << ", Finish Time at: " << process.finishTime << std::endl;
     }
 }
 
