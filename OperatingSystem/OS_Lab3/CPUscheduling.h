@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <iomanip>
 
 struct Process {
     int pid;
@@ -24,9 +25,11 @@ public:
     void SJF(std::vector<Process>& processes);
     void HRRN(std::vector<Process>& processes);
     void RR(std::vector<Process>& processes, int timeQuantum);
+
     void printInit(const std::vector<Process>& processes);
     void printProcesses(const std::vector<Process>& processes);
     std::vector<Process> generateProcesses(int numProcesses); // 随机生成进程
+    void calculateMetrics(const std::vector<Process>& processes);
 };
 
 #endif
