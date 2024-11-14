@@ -1,5 +1,6 @@
 # include "Token.h"
 
+/* ————————常量赋值———————— */
 TokenCode code = TK_UNDEF;
 int row = 1;
 string token;
@@ -35,25 +36,27 @@ unordered_map<TokenCode, string> tokenSymbols = {
         {KW_USING, "using"},         {KW_THIS, "this"},         {KW_NEW, "new"},         {KW_DELETE, "delete"},
         {KW_TRY, "try"},             {KW_CATCH, "catch"},       {KW_THROW, "throw"},     {KW_STD, "std"},
         {KW_SIZEOF, "sizeof"},       {KW_NULLPTR, "nullptr"},   {KW_OPERATOR_FUNC, "operator"}, {KW_INLINE, "inline"},
-        {KW_STATIC, "static"},       {KW_EXTERN, "extern"},     {KW_ASM, "asm"},          {KW_MAIN,"main"},
-        {KW_COUT, "cout"},           {KW_CIN, "cin"},           {KW_ENDL, "endl"},
+        {KW_STATIC,     "static"},       {KW_EXTERN, "extern"},     {KW_ASM, "asm"},          {KW_MAIN, "main"},
+        {KW_COUT,       "cout"},           {KW_CIN, "cin"},           {KW_ENDL, "endl"},
         // 运算符
-        {TK_PLUS, "+"},{TK_MINUS, "-"},{TK_STAR, "*"},{TK_DIVIDE, "/"},{TK_ASSIGN, "="},{TK_EQ, "=="},{TK_LT, "<"},
-        {TK_LEQ, "<="},{TK_GT, ">"},{TK_GEQ, ">="},{TK_NOT, "!"},{TK_AND, "&&"},{TK_NEQ, "!="},
-        {TK_MOD, "%"},{TK_DECREMENT, "--"},{TK_DOT, "."},{TK_COLON, ":"},{TK_REF, "&"},
+        {TK_PLUS,       "+"},{TK_MINUS, "-"},{TK_STAR, "*"},{TK_DIVIDE, "/"},{TK_ASSIGN, "="},{TK_EQ, "=="},{TK_LT, "<"},
+        {TK_LEQ,        "<="},{TK_GT, ">"},{TK_GEQ, ">="},{TK_NOT, "!"},{TK_AND, "&&"},{TK_NEQ, "!="},
+        {TK_MOD,        "%"},{TK_DECREMENT, "--"},{TK_DOT, "."},{TK_COLON, ":"},{TK_REF, "&"},
         // 分隔符
-        {TK_OPENPA, "("},{TK_CLOSEPA, ")"},
-        {TK_OPENBR, "["},{TK_CLOSEBR, "]"},
-        {TK_BEGIN, "{"},{TK_END, "}"},
-        {TK_COMMA, ","},{TK_SEMOCOLOM, ";"},
+        {TK_OPENPA,     "("},{TK_CLOSEPA, ")"},
+        {TK_OPENBR,     "["},{TK_CLOSEBR, "]"},
+        {TK_BEGIN,      "{"},{TK_END, "}"},
+        {TK_COMMA,      ","},{TK_SEMICOLON, ";"},
         {TK_ADD_ASSIGN, "+="},{TK_SUB_ASSIGN, "-="},{TK_MUL_ASSIGN, "*="},{TK_DIV_ASSIGN, "/="},{TK_MOD_ASSIGN, "%="},
-        {TK_OR, "||"},{TK_SHL, "<<"},{TK_SHR, ">>"},{TK_CHAR_LITERAL, "Char"},
-        // 常量
-        {TK_INT, "INT"},{TK_DOUBLE, "Float"},
+        {TK_OR,         "||"},{TK_SHL, "<<"},{TK_SHR, ">>"},{TK_DELIMITER,"\""},
+        // 常量"
+        {TK_INT,        "INT"},{TK_FLOAT, "Float"}, {TK_DOUBLE, "Double"}, {TK_CHAR_LITERAL, "TXT/String"},
+
         // 标识符
-        {TK_IDENT, "Identifier"}
+        {TK_IDENT,      "Identifier"}
 };
 
+/* ————————打印函数———————— */
 // 打印所有单词符号及其类别编码的表格（按 TokenCode 逆序输出）
 void printTokenCodes() {
     vector<pair<TokenCode, string>> sortedTokens(tokenSymbols.begin(), tokenSymbols.end());
@@ -72,8 +75,8 @@ void printTokenCodes() {
         string type;
         if (code >= KW_VOID && code <= KW_MAIN) type = "关键字";
         else if (code >= TK_PLUS && code <= TK_REF) type = "运算符";
-        else if (code >= TK_OPENPA && code <= TK_CHAR_LITERAL) type = "分隔符";
-        else if (code == TK_INT || code == TK_DOUBLE) type = "常量";
+        else if (code >= TK_OPENPA && code <= TK_DELIMITER) type = "分隔符";
+        else if (code >= TK_INT && code <= TK_CHAR_LITERAL) type = "常量";
         else if (code == TK_IDENT) type = "标识符";
         else type = "未定义";
 
@@ -98,14 +101,20 @@ void print(TokenCode code, ofstream &outputFile) {
     else if (code >= TK_PLUS && code <= TK_REF) {  // 运算符范围
         outputFile << '(' << code << ',' << token << ") 运算符" << endl;
     }
-    else if (code >= TK_OPENPA && code <= TK_CHAR_LITERAL) {  // 分隔符范围
+    else if (code >= TK_OPENPA && code <= TK_DELIMITER) {  // 分隔符范围
         outputFile << '(' << code << ',' << token << ") 分隔符" << endl;
     }
-    else if (code == TK_INT || code == TK_DOUBLE) {  // 常量范围
+    else if (code >= TK_INT || code <= TK_CHAR_LITERAL) {  // 常量范围
         if (code == TK_INT) {
             outputFile << '(' << code << ',' << atoi(token.c_str()) << ") 整型常量" << endl;
-        } else {
-            outputFile << '(' << code << ',' << atof(token.c_str()) << ") 浮点型常量" << endl;
+        }
+        else if(code == TK_FLOAT){
+            outputFile << '(' << code << ',' << atof(token.c_str()) << ") 浮点型常量float" << endl;
+        }
+        else if(code == TK_DOUBLE){
+            outputFile << '(' << code << ',' << atof(token.c_str()) << ") 浮点型常量double" << endl;
+        } else{
+            outputFile << '(' << code << ',' << token << ") 字符字面量" << endl;
         }
     }
     else if (code == TK_IDENT) {  // 标识符
@@ -116,6 +125,8 @@ void print(TokenCode code, ofstream &outputFile) {
     }
 }
 
+/* ————————辅助检测函数———————— */
+// 1. 检索关键字
 bool isKey(string token)
 {
     for (int i = 0; i < MAX; i++)
@@ -126,6 +137,7 @@ bool isKey(string token)
     return false;
 }
 
+// keyWord数组查找
 int  getKeyID(string token)
 {
     for (int i = 0; i < MAX; i++)
@@ -136,20 +148,17 @@ int  getKeyID(string token)
     return -1;
 }
 
-// 检查字符是否为字母
+// 2. 检查字符是否为字母
 bool isLetter(char letter) {
     return (letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z');
 }
 
-// 检查字符是否为数字
+// 3. 检查字符是否为数字
 bool isDigit(char digit) {
     return (digit >= '0' && digit <= '9');
 }
 
-using namespace std;
-
-unordered_map<string, string> macros; // 用于存储宏定义
-
+/* ————————预处理 & 词法分析———————— */
 void preprocess(string &inputFilePath, string &outputFilePath) {
     ifstream inputFile(inputFilePath);
     ofstream outputFile(outputFilePath);
@@ -199,7 +208,6 @@ void preprocess(string &inputFilePath, string &outputFilePath) {
             if (start != string::npos && end != string::npos) {
                 string macroName = line.substr(start, end - start);
                 string macroValue = line.substr(end + 1); // 剩余的部分为宏值
-                macros[macroName] = macroValue; // 存储宏定义
             }
             continue; // 跳过宏定义行
         }
@@ -230,7 +238,7 @@ void preprocess(string &inputFilePath, string &outputFilePath) {
                     inComment = true; // 进入多行注释
                     i++; // 跳过 '*'
                 }
-                    // 检测单行注释开始
+                // 检测单行注释开始
                 else if (i + 1 < line.length() && ch == '/' && line[i + 1] == '/') {
                     // 检查是否后面有内容，没有则报错
                     if (line.length() == i + 2) {
@@ -261,9 +269,10 @@ void preprocess(string &inputFilePath, string &outputFilePath) {
     outputFile.close();
 }
 
-// 词法分析函数，从输入文件流中读取代码，分析词法单元，并将结果写入输出文件流
 void lexicalAnalysis(ifstream &file, ofstream &outputFile) {
     char ch;
+    std::stack<std::pair<char, int>> bracketStack; // 栈记录括号及其行号
+
     while (file.get(ch)) { // 从文件流中获取一个字符
         token.clear();      // 清空当前 token
         token.push_back(ch);
@@ -306,7 +315,44 @@ void lexicalAnalysis(ifstream &file, ofstream &outputFile) {
                 code = TK_INT;
         }
 
-        // 优化后的识别运算符和分隔符代码
+        // 识别字符串字面量
+        else if (ch == '"') {
+            print(TK_DELIMITER, outputFile);
+            token.clear();
+            bool isClosed = false;
+
+            // 继续读取字符直到找到配对的引号
+            while (file.get(ch)) {
+                // 检测到转义字符，忽略下一个字符的特殊含义
+                if (ch == '\\' && file.peek() == '"') {
+                    token.push_back(ch); // 加入转义字符
+                    file.get(ch);        // 获取并加入被转义的引号
+                    token.push_back(ch);
+                    continue;
+                }
+
+                // 找到配对的引号，字符串字面量闭合
+                if (ch == '"') {
+                    isClosed = true;
+                    break;
+                }
+                token.push_back(ch);  // 添加字符串中的字符
+            }
+
+            if (isClosed) {
+                print(TK_CHAR_LITERAL, outputFile);
+                token.clear();
+                token.push_back('"');
+                code = TK_DELIMITER;  // 标记为字符串字面量
+            } else {
+                // 抛出异常，未闭合的字符串
+                std::ostringstream errorMsg;
+                errorMsg << "\n>_< Error at line " << row << ": unmatched '\"'";
+                throw std::runtime_error(errorMsg.str());
+            }
+        }
+
+        // 识别运算符和分隔符代码
         else {
             switch (ch) {
                 case '+':
@@ -380,14 +426,53 @@ void lexicalAnalysis(ifstream &file, ofstream &outputFile) {
                     break;
                 case '.':
                     code = TK_DOT; break; // 点运算符
-                case '(': code = TK_OPENPA; break;
-                case ')': code = TK_CLOSEPA; break;
-                case '[': code = TK_OPENBR; break;
-                case ']': code = TK_CLOSEBR; break;
-                case '{': code = TK_BEGIN; break;
-                case '}': code = TK_END; break;
+                case '(':
+                    bracketStack.push({'(', row});
+                    code = TK_OPENPA;
+                    break;
+                case ')':
+                    if (bracketStack.empty() || bracketStack.top().first != '(') {
+                        std::ostringstream errorMsg;
+                        errorMsg << "\n>_< Error at line " << row
+                                 << ": unmatched ')'";
+                        throw std::runtime_error(errorMsg.str());
+                    } else {
+                        bracketStack.pop();
+                    }
+                    code = TK_CLOSEPA;
+                    break;
+                case '[':
+                    bracketStack.push({'[',row});
+                    code = TK_OPENBR;
+                    break;
+                case ']':
+                    if (bracketStack.empty() || bracketStack.top().first != '[') {
+                        std::ostringstream errorMsg;
+                        errorMsg << "\n>_< Error at line " << row
+                                 << ": unmatched ']'";
+                        throw std::runtime_error(errorMsg.str());
+                    } else {
+                        bracketStack.pop();
+                    }
+                    code = TK_CLOSEBR;
+                    break;
+                case '{':
+                    bracketStack.push({'{',row});
+                    code = TK_BEGIN;
+                    break;
+                case '}':
+                    if (bracketStack.empty() || bracketStack.top().first != '{') {
+                        std::ostringstream errorMsg;
+                        errorMsg << "\n>_< Error at line " << row
+                                 << ": unmatched '}'";
+                        throw std::runtime_error(errorMsg.str());
+                    } else {
+                        bracketStack.pop();
+                    }
+                    code = TK_END;
+                    break;
                 case ',': code = TK_COMMA; break;
-                case ';': code = TK_SEMOCOLOM; break;
+                case ';': code = TK_SEMICOLON; break;
                 case ':': code = TK_COLON; break; // 冒号
                 case '&':
                     if (file.peek() == '&') {
@@ -432,9 +517,22 @@ void lexicalAnalysis(ifstream &file, ofstream &outputFile) {
         // 将词法分析结果写入输出文件
         print(code, outputFile);
     }
+
+    // 检查是否有未闭合的左括号
+    while (!bracketStack.empty()) {
+        char unclosedBracket = bracketStack.top().first;
+        int unclosedLine = bracketStack.top().second;
+        bracketStack.pop();
+
+        std::ostringstream errorMsg;
+        errorMsg << "\n Error at line " << unclosedLine
+                 << ": unmatched '" << unclosedBracket << "'";
+        throw std::runtime_error(errorMsg.str());
+    }
 }
 
-// 预处理和词法分析文件的处理函数
+/* ————————文件处理函数———————— */
+// 文件处理函数
 void processFile(string &inputFilePath, string &outputDir, string &fileName) {
     string filteredDir = "../filtered";
     string outputFilePath = outputDir + "/output_" + fileName;

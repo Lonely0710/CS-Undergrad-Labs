@@ -2,12 +2,15 @@
 #define TOKEN_H
 
 #include <iostream>
-#include <fstream> // 用于文件流操作
+#include <fstream>
 #include <filesystem>
+#include <sstream>
 #include <cctype>  // 用于字符判断函数 isalpha, isdigit 等
 #include <string>
 #include <iomanip> // 用于格式化输出
 #include <chrono>
+#include <stack>
+#include <stdexcept>
 
 using namespace std;
 
@@ -102,7 +105,7 @@ enum TokenCode {
                     TK_BEGIN,     // {左大括号
                     TK_END,       // }右大括号
                     TK_COMMA,     // ,逗号
-                    TK_SEMOCOLOM, // ;分号
+                    TK_SEMICOLON, // ;分号
                     TK_ADD_ASSIGN, // +=
                     TK_SUB_ASSIGN, // -=
                     TK_MUL_ASSIGN, // *=
@@ -111,21 +114,13 @@ enum TokenCode {
                     TK_OR,       // ||
                     TK_SHL,       // <<
                     TK_SHR,       // >>
-                    TK_CHAR_LITERAL, // 字符字面量
-
+                    TK_DELIMITER, // "
     /* 常量 */       TK_INT,    // 整型常量
+                    TK_FLOAT, // 浮点型常量
                     TK_DOUBLE, // 浮点型常量
-
+                    TK_CHAR_LITERAL, // 字符字面量
     /* 标识符 */     TK_IDENT
 };
-
-// 符号信息结构体
-struct TokenInfo {
-    std::string symbol;     // 符号字符串
-    TokenCode code;         // 种别码
-    std::string category;   // 所属类别
-};
-
 
 /* 全局变量 */
 extern TokenCode code;      // 记录单词的种别码
