@@ -161,7 +161,7 @@ void findFirstAssemble() {
     }
 }
 
-// FOLLOW 集计算的部分功能（处理右侧符号 FOLLOW 集）
+// FOLLOW 集计算的部分功能（处理右侧符号 FOLLOW 集，回溯）
 void repeat() {
     for (const auto& [left, rightSet] : splProd) { // 遍历每个产生式
         for (const string& right : rightSet) {
@@ -193,64 +193,85 @@ void findFollowAssemble() {
     follow[start].insert("#");
 
     // 遍历产生式，计算 FOLLOW 集
-    for (const auto& [left, rightSet] : splProd) {
-        for (const string& right : rightSet) {
-            for (int i = 0; i < right.length(); i++) {
-                string current;
-                if (i + 1 < right.length() && right[i + 1] == '\'') {
-                    current = right.substr(i, 2); // 处理带引号的符号
-                    i++;
-                } else {
-                    current = right.substr(i, 1); // 普通符号
-                }
+    for (auto it = splProd.begin(); it != splProd.end(); it++) {
+        string left = it->first; // 左部非终结符
+        set<string> right = it->second; // 右部产生式集合
 
-                if (!isVt(current)) { // 如果是非终结符
-                    string next;
-                    if (i + 1 < right.length()) {
-                        if (i + 2 < right.length() && right[i + 2] == '\'') {
-                            next = right.substr(i + 1, 2); // 处理带引号的后续符号
-                            i++;
+        for (auto ii = right.begin(); ii != right.end(); ii++) {
+            string temp = *ii; // 当前右部产生式
+            for (int i = 0; i < temp.length(); i++) {
+                if (isVt(temp.substr(i, 1))) {
+                    // 如果当前符号是终结符，跳过
+                    continue;
+                } else if (i + 1 < temp.length() && temp[i + 1] == '\\') {
+                    // 当前符号是非终结符并带有反斜杠
+                    if (isVt(temp.substr(i + 2, 1))) {
+                        // 非终结符 + 终结符，直接加入 FOLLOW 集
+                        follow[temp.substr(i, 2)].insert(temp.substr(i + 2, 1));
+                        i++; // 跳过处理的终结符
+                    } else {
+                        // 非终结符 + 非终结符，加入 FIRST 集
+                        string N;
+                        if (i + 3 < temp.length() && temp[i + 3] == '\\') {
+                            N = temp.substr(i + 2, 2);
                         } else {
-                            next = right.substr(i + 1, 1);
+                            N = temp.substr(i + 2, 1);
                         }
-                    }
-
-                    // 将后续符号的 FIRST 集（去除空串）添加到当前符号的 FOLLOW 集
-                    if (!next.empty()) {
-                        for (const string& f : first[next]) {
-                            if (f != "^") {
-                                follow[current].insert(f);
+                        set<string> ff = first[N];
+                        for (auto nn = ff.begin(); nn != ff.end(); nn++) {
+                            if (*nn != "^") {
+                                follow[temp.substr(i, 2)].insert(*nn);
                             }
                         }
-
-                        // 如果后续符号的 FIRST 集包含空串，添加左部的 FOLLOW 集
-                        if (first[next].count("^")) {
-                            follow[current].insert(follow[left].begin(), follow[left].end());
+                        // 如果 FIRST 集包含空串，还需加入左部的 FOLLOW 集
+                        if (ff.count("^")) {
+                            follow[temp.substr(i, 2)].insert(follow[left].begin(), follow[left].end());
                         }
+                    }
+                } else {
+                    // 当前符号是不带反斜杠的非终结符
+                    if (i + 1 < temp.length() && isVt(temp.substr(i + 1, 1))) {
+                        // 非终结符 + 终结符
+                        follow[temp.substr(i, 1)].insert(temp.substr(i + 1, 1));
+                        i++;
                     } else {
-                        // 如果当前符号是最后一个，直接继承左部的 FOLLOW 集
-                        follow[current].insert(follow[left].begin(), follow[left].end());
+                        // 非终结符 + 非终结符
+                        string N;
+                        if (i + 2 < temp.length() && temp[i + 2] == '\\') {
+                            N = temp.substr(i + 1, 2);
+                        } else {
+                            N = temp.substr(i + 1, 1);
+                        }
+                        set<string> ff = first[N];
+                        for (auto nn = ff.begin(); nn != ff.end(); nn++) {
+                            if (*nn != "^") {
+                                follow[temp.substr(i, 1)].insert(*nn);
+                            }
+                        }
+                        // 如果 FIRST 集包含空串，还需加入左部的 FOLLOW 集
+                        if (ff.count("^")) {
+                            follow[temp.substr(i, 1)].insert(follow[left].begin(), follow[left].end());
+                        }
                     }
                 }
             }
         }
     }
 
-    // 迭代调用 repeat，确保 FOLLOW 集完全传播
-    for (int k = 0; k < 5; ++k) { // 根据需要调整迭代次数
+    // 多次调用 repeat，确保 FOLLOW 集完全传播
+    int iteration = 5; // 调整迭代次数
+    while (iteration--) {
         repeat();
     }
 
     // 输出 FOLLOW 集
-    cout << "对应的 FOLLOW 集：" << endl;
-    for (const auto& [nonTerminal, followSet] : follow) {
-        if (!followSet.empty() && isVn(nonTerminal)) { // 仅输出非空集合且为合法非终结符
-            cout << "    " << nonTerminal << ":   ";
-            for (const string& f : followSet) {
-                cout << f << "    ";
-            }
-            cout << endl;
+    cout << endl << "对应的 FOLLOW 集：" << endl;
+    for (auto it = follow.begin(); it != follow.end(); it++) {
+        cout << " " << it->first << ": ";
+        for (auto ii = it->second.begin(); ii != it->second.end(); ii++) {
+            cout << *ii << " ";
         }
+        cout << endl;
     }
 }
 
