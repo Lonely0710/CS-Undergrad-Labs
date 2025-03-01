@@ -1,6 +1,6 @@
 # CS Master Learning Repository
 
-[![Contribution Graph](https://activity-graph.herokuapp.com/graph?username=Lonely0710&repo=CS-master-learning&theme=github&area=true)](https://github.com/Lonely0710/CS-master-learning)
+[![Lonely0710's Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Lonely0710&repo=CS-master-learning&theme=github)](https://github.com/Lonely0710/CS-master-learning)
 
 > 📦 本科计算机核心课程实验代码存档库  
 > 🚀 记录计算机科学核心课程的学习轨迹与实践代码  
@@ -32,4 +32,3 @@ git clone https://github.com/Lonely0710/CS-master-learning.git
 本项目采用 [MIT License](LICENSE)，欢迎用于学习交流。
 
 [![License Badge](https://lonelynotes-images.oss-cn-beijing.aliyuncs.com/202503011449046.svg)](https://opensource.org/licenses/MIT)
-```
