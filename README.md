@@ -1,9 +1,6 @@
 # CS Master Learning Repository
 
-[![Contribution Calendar](https://ghchart.rshah.org/1f8c3d/Lonely0710)](https://github.com/Lonely0710)  
-*↑ 点击日历查看日期详情 ↑*
-
-[![Activity Timeline](https://github-readme-activity-graph.vercel.app/graph?username=Lonely0710&repo=CS-master-learning&theme=github&custom_title=提交趋势分析)](https://github.com/Lonely0710/CS-master-learning)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Lonely0710&repo=CS-master-learning&theme=minimal&bg_color=ffffff&color=24292f&line=1f8c3d&point=39d353)](https://github.com/Lonely0710/CS-master-learning)
 
 [![GitHub Contribution Calendar](https://img.shields.io/badge/GitHub-Contribution_Calendar-1f8c3d?style=for-the-badge&logo=github)](https://github.com/Lonely0710)
 
