@@ -1,32 +1,29 @@
-# CS Master Learning Repository
+# CS Undergraduate Labs Repository
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Lonely0710&repo=CS-master-learning&theme=minimal&bg_color=ffffff&color=24292f&line=1f8c3d&point=39d353)](https://github.com/Lonely0710/CS-master-learning)
+<p align="center">
+  <img alt="license" src="https://img.shields.io/github/license/Lonely0710/CS-Undergrad-Labs" />
+  <img alt="stars" src="https://img.shields.io/github/stars/Lonely0710/CS-Undergrad-Labs" />
+  <!-- <img alt="forks" src="https://img.shields.io/github/forks/Lonely0710/CS-Undergrad-Labs" /> -->
+  <!-- <img alt="issues" src="https://img.shields.io/github/issues/Lonely0710/CS-Undergrad-Labs" /> -->
+  <!-- 如果你的项目有发布版本，可以取消下面这行的注释 -->
+  <!-- <img alt="release" src="https://img.shields.io/github/v/release/Lonely0710/CS-Undergrad-Labs" /> -->
+  <!-- 如果你的项目有总下载量统计，可以取消下面这行的注释 -->
+  <!-- <img alt="downloads" src="https://img.shields.io/github/downloads/Lonely0710/CS-Undergrad-Labs" /> -->
+</p>
 
-[![GitHub Contribution Calendar](https://img.shields.io/badge/GitHub-Contribution_Calendar-1f8c3d?style=for-the-badge&logo=github)](https://github.com/Lonely0710)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Lonely0710&repo=CS-Undergrad-Labs&theme=minimal&bg_color=ffffff&color=24292f&line=1f8c3d&point=39d353)](https://github.com/Lonely0710/CS-master-learning)
 
-> 📦 本科计算机核心课程实验代码存档库  
+<!--[![GitHub Contribution Calendar](https://img.shields.io/badge/GitHub-Contribution_Calendar-1f8c3d?style=for-the-badge&logo=github)](https://github.com/Lonely0710) -->
+
+> 🏫 所有实验均来自北京交通大学（BJTU）本科阶段课程   
 > 🚀 记录计算机科学核心课程的学习轨迹与实践代码  
+> 💡 欢迎学习、交流与分享友好讨论
 
 ## 🗂️ 课程目录导航
 
 1. **[`OperatingSystem`](./OperatingSystem)**  
 
 2. **[`CompilationPrinciple`](./CompilationPrinciple)**  
-
-## 🛠️ 使用指南
-```bash
-git clone https://github.com/Lonely0710/CS-master-learning.git
-```
-
-## 📜 提交规范
-
-| Emoji | 类型     | 描述          |
-| ----- | -------- | ------------- |
-| 🎉     | feat     | 新增实验/功能 |
-| 🐛     | fix      | 修复代码问题  |
-| 📚     | docs     | 文档更新      |
-| ♻️     | refactor | 代码重构      |
-| 🚧     | wip      | 开发中功能    |
 
 ## 📜 许可协议
 
