@@ -1,0 +1,31 @@
+<mxfile host="Electron" modified="2024-05-06T11:18:43.907Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="is7jgHfK3Z0kch2nqCYW" version="22.1.2" type="device">
+  <diagram name="第 1 页" id="MGGMpEfD04TdRzl15u1k">
+    <mxGraphModel dx="386" dy="649" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dhClQpp3htmna0k042Pr-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=13;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="dhClQpp3htmna0k042Pr-1" target="dhClQpp3htmna0k042Pr-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dhClQpp3htmna0k042Pr-1" value="开始" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=13;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="130" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dhClQpp3htmna0k042Pr-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=13;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="dhClQpp3htmna0k042Pr-2" target="dhClQpp3htmna0k042Pr-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dhClQpp3htmna0k042Pr-2" value="初始化8254" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=13;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="130" y="170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dhClQpp3htmna0k042Pr-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=13;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="dhClQpp3htmna0k042Pr-4" target="dhClQpp3htmna0k042Pr-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dhClQpp3htmna0k042Pr-4" value="送计数初值N&lt;br style=&quot;font-size: 13px;&quot;&gt;（500/1000）" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=13;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="130" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dhClQpp3htmna0k042Pr-6" value="程序结束" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=13;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="130" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
