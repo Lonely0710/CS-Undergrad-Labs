@@ -1,10 +1,10 @@
 # 🎓 CS Undergraduate Lab Repository
 
 <p align="center">
-  <img alt="license" src="https://img.shields.io/github/license/Lonely0710/CS-Undergrad-Labs" />
+  <img alt="license" src="https://img.shields.io/github/license/Lonely0710/CS-Undergrad-Labs?style=flat-round" />
   <img alt="stars" src="https://img.shields.io/github/stars/Lonely0710/CS-Undergrad-Labs" />
   <img alt="contributors" src="https://img.shields.io/github/contributors/Lonely0710/CS-Undergrad-Labs" />
-   <img alt="last-commit" src="https://img.shields.io/github/last-commit/Lonely0710/CS-Undergrad-Labs" /> 
+  <img alt="last-commit" src="https://img.shields.io/github/last-commit/Lonely0710/CS-Undergrad-Labs" /> 
 </p>
 
 > [!tip]
