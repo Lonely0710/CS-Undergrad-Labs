@@ -1,0 +1,3 @@
+/Users/yll/CLion/CompilationPrinciple/CP_Lab4/cmake-build-debug/CMakeFiles/CP_Lab4.dir
+/Users/yll/CLion/CompilationPrinciple/CP_Lab4/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/yll/CLion/CompilationPrinciple/CP_Lab4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
