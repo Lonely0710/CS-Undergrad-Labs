@@ -1,0 +1,64 @@
+version = 5.10.3
+[vbox 127.0.0.1:16600]
+    workingdir = None
+    udp = 10000
+    [[PC PC_1]]
+        device_id = 1
+        bridge_mac = 5c-0a-bd-04-01-00
+        slot0 = PC 250
+        GE_0/1 = Router1 GE_0/1
+        symbol = PC
+        x = -52.0
+        y = -360.0
+        z = 5.0
+    [[PC PC_2]]
+        device_id = 2
+        bridge_mac = 5c-0a-c0-e9-02-00
+        slot0 = PC 250
+        GE_0/1 = Router2 GE_0/2
+        symbol = PC
+        x = -411.0
+        y = 62.0
+        z = 5.0
+    [[PC PC_3]]
+        device_id = 3
+        bridge_mac = 5c-0a-c5-74-03-00
+        slot0 = PC 250
+        GE_0/1 = Router3 GE_0/2
+        symbol = PC
+        x = 346.0
+        y = 68.0
+        z = 5.0
+    [[MSR36-20 Router2]]
+        device_id = 5
+        bridge_mac = 5c-0a-de-3e-05-00
+        slot0 = MSR36 384
+        GE_0/0 = Router1 GE_0/0
+        GE_0/2 = PC_2 GE_0/1
+        GE_0/1 = Router3 GE_0/1
+        x = -209.0
+        y = -60.0
+        z = 5.0
+    [[MSR36-20 Router3]]
+        device_id = 6
+        bridge_mac = 5c-0a-e2-f5-06-00
+        slot0 = MSR36 384
+        GE_0/0 = Router1 GE_0/2
+        GE_0/1 = Router2 GE_0/1
+        GE_0/2 = PC_3 GE_0/1
+        x = 144.0
+        y = -59.0
+        z = 5.0
+    [[MSR36-20 Router1]]
+        device_id = 4
+        bridge_mac = 5c-0a-d9-49-04-00
+        slot0 = MSR36 384
+        GE_0/1 = PC_1 GE_0/1
+        GE_0/0 = Router2 GE_0/0
+        GE_0/2 = Router3 GE_0/0
+        x = -57.0
+        y = -222.0
+        z = 5.0
+[Non-vBox-DATA]
+    m11 = 1.2
+    m22 = 1.2

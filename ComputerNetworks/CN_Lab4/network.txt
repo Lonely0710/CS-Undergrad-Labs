@@ -1,0 +1,33 @@
+A B 7
+B A 7
+
+A C 9
+C A 9
+
+A F 14
+F A 14
+
+B C 10
+C B 10
+
+B D 15
+D B 15
+
+C D 11
+D C 11
+
+C F 2
+F C 2
+
+D E 6
+E D 6
+
+E F 9
+F E 9
+
+# Another component (disconnected from A-F) for testing
+G H 1
+H G 1
+
+I J 5
+J I 5

@@ -1,0 +1,53 @@
+{
+ "projectInfo": {
+  "name": "ospf",
+  "path": "lab09",
+  "visibility": "2",
+  "introduction": "",
+  "label": []
+ },
+ "deviceInfoList": [
+  {
+   "resourceName": "PC_1",
+   "resourceCategory": "终端",
+   "resourceModel": "PC",
+   "resourceVersion": "",
+   "configPath": "DeviceConfig\\PC_1.cfg"
+  },
+  {
+   "resourceName": "PC_2",
+   "resourceCategory": "终端",
+   "resourceModel": "PC",
+   "resourceVersion": "",
+   "configPath": "DeviceConfig\\PC_2.cfg"
+  },
+  {
+   "resourceName": "PC_3",
+   "resourceCategory": "终端",
+   "resourceModel": "PC",
+   "resourceVersion": "",
+   "configPath": "DeviceConfig\\PC_3.cfg"
+  },
+  {
+   "resourceName": "Router1",
+   "resourceCategory": "路由器",
+   "resourceModel": "MSR36-20",
+   "resourceVersion": "CMW7.1.064-R0821P11",
+   "configPath": "DeviceConfig\\Router1.cfg"
+  },
+  {
+   "resourceName": "Router2",
+   "resourceCategory": "路由器",
+   "resourceModel": "MSR36-20",
+   "resourceVersion": "CMW7.1.064-R0821P11",
+   "configPath": "DeviceConfig\\Router2.cfg"
+  },
+  {
+   "resourceName": "Router3",
+   "resourceCategory": "路由器",
+   "resourceModel": "MSR36-20",
+   "resourceVersion": "CMW7.1.064-R0821P11",
+   "configPath": "DeviceConfig\\Router3.cfg"
+  }
+ ]
+}

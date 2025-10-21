@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Page</title>
+    <style>
+        body {
+            text-align: center;
+            /* 使所有文本居中 */
+            font-family: Arial, sans-serif;
+            /* 设置字体 */
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            font-size: 36px;
+            /* 设置h1标签的字号 */
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 20px;
+            /* 设置p标签的字号 */
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            /* 移除链接的下划线 */
+            color: #3498db;
+            /* 设置链接颜色 */
+            font-size: 24px;
+            /* 设置链接的字号 */
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>You've Reached the Next Page!</h1>
+        <p>This is the content of the next page.</p>
+        <p>Time: <span id="current-time">Current Time</span></p>
+        <p><a href="index.html">Go Back</a></p>
+    </div>
+
+    <script>
+        // 动态显示当前时间
+        function updateCurrentTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('current-time').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // 页面加载完成后更新时间
+        window.addEventListener('load', updateCurrentTime);
+
+        // 每秒更新一次时间
+        setInterval(updateCurrentTime, 1000);
+    </script>
+</body>
+
+</html>
