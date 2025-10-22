@@ -15,7 +15,7 @@ DB_CONFIG = {
     "host": "localhost",
     "database": "restaurant_test",
     "user": "root",
-    "password": "yll20040710"
+    "password": "DB_PASSWORD" # 替换为你的数据库密码
 }
 LOG_FILE = "operations.log"
 INSERT_THREADS = 3       # 并发插入线程数

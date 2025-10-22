@@ -3,11 +3,11 @@ from email.mime.text import MIMEText
 from email.header import Header
 
 # 发件人信息
-sender = '205923907@qq.com'  # 发件人邮箱
-sender_password = 'csyuzzxelotgcagg'  # 发件人邮箱密码或授权码
+sender = 'you@example.com'  # 发件人邮箱
+sender_password = 'EMAIL_PASSWORD'  # 发件人邮箱密码或授权码
 
 # 收件人信息
-receivers = ['lingsou43@gmail.com']  # 收件人邮箱，可以设置多个收件人
+receivers = ['smtp.example.com']  # 收件人邮箱，可以设置多个收件人
 
 # 邮件内容
 subject = 'Python SMTP 邮件测试'
